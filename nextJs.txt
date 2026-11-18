@@ -1,0 +1,232 @@
+TYPESCRIPT
+==========
+
+What is TypeScript?
+-------------------
+TypeScript is a programming language developed by Microsoft. It builds on
+JavaScript and adds features such as static types, interfaces, and improved
+editor tools. TypeScript code is compiled into JavaScript before it runs.
+
+Basic types
+-----------
+
+Number:
+    let age: number = 23;
+
+String:
+    let user: string = "James";
+
+Boolean:
+    let isStudent: boolean = true;
+
+Arrays:
+    let marks: number[] = [1, 2, 3, 4, 5];
+    let names: Array<string> = ["Anu", "Manu"];
+
+Tuple (a fixed sequence of values with known types):
+    let person: [string, number] = ["Anu", 21];
+
+Enum:
+    enum Role {
+        Admin,
+        User,
+        Guest
+    }
+
+    let myRole: Role = Role.Admin;
+
+Any:
+    let value: any = 10;
+    value = "Anu";
+
+The "any" type allows a value to have different types, but it reduces
+TypeScript's ability to catch type-related mistakes. Prefer a specific type
+when possible.
+
+Functions
+---------
+Specify the types of a function's parameters and return value:
+
+    function add(a: number, b: number): number {
+        return a + b;
+    }
+
+An optional parameter uses a question mark (?). Its value may be undefined:
+
+    function greet(name?: string): void {
+        console.log(name);
+    }
+
+
+NEXT.JS
+=======
+
+Overview
+--------
+Next.js is a React framework developed by Vercel for building web
+applications. It includes features for routing, rendering, and server-side
+functionality that can help with performance and search engine optimization
+(SEO).
+
+Key features
+------------
+
+1. Server-side rendering (SSR)
+   The server generates HTML for a page when it is requested and sends it to
+   the browser.
+
+2. Static site generation (SSG)
+   HTML is generated at build time and can be served to users afterward.
+
+3. File-based routing
+   Routes are created from files and folders in the app.
+
+4. Route handlers
+   Server-side endpoints can be added to a Next.js application.
+
+5. Rendering flexibility
+   Pages can use different rendering approaches, depending on the app's needs.
+
+Next.js vs. React
+-----------------
+
+Topic             Next.js                         React
+----------------  ------------------------------  ---------------------------
+Rendering         Supports server-side rendering, Commonly used for client-side
+                  static site generation, and     rendering; other approaches
+                  client-side rendering.         need additional setup.
+
+Routing           Includes file-based routing.    Add a routing library or
+                                                  configure routing.
+
+SEO               Server-rendered and static      Server-rendered pages often
+                  pages can help with SEO.        need additional setup.
+
+Backend features  Includes server-side features.  Usually paired with a
+                                                  separate backend.
+
+
+Create and run a project
+------------------------
+
+1. Create a Next.js app:
+
+       npx create-next-app@latest my-app
+
+2. Move into the project folder:
+
+       cd my-app
+
+3. Start the development server:
+
+       npm run dev
+
+4. Open the address shown in the terminal in your browser. The default local
+   address is:
+
+       http://localhost:3000
+
+
+Common project files and folders
+--------------------------------
+
+package.json
+    Stores project information, dependencies, and npm scripts.
+
+tsconfig.json
+    Configures TypeScript for the project.
+
+next.config.ts
+    Contains Next.js configuration options. The name or presence of this file
+    may vary depending on the project setup.
+
+next-env.d.ts
+    Provides TypeScript declarations for Next.js types and features.
+
+app/
+    The App Router directory. It contains route pages and layouts, and can
+    define loading states, data fetching, and server components.
+
+
+Routing in Next.js
+------------------
+The App Router uses file-based routing. A folder inside the app/ directory
+creates a URL path segment, and a page.tsx file inside that folder defines
+the page for that route. The app/page.tsx file defines the home page.
+
+Example:
+
+    app/
+    |-- page.tsx                 -> /
+    |-- about/
+    |   `-- page.tsx             -> /about
+    `-- blog/
+        `-- first-post/
+            `-- page.tsx         -> /blog/first-post
+
+To create a route:
+    1. Create a folder inside app/ using the route segment as its name.
+    2. Add a page.tsx file inside that folder.
+    3. Put the page component in page.tsx.
+
+Layouts
+-------
+layout.tsx is used to define shared UI that appears across one or more pages.
+A layout can include elements such as a navigation bar, footer, or container.
+Layouts preserve their state and do not re-render when a user changes route
+within that layout.
+
+
+Server and client components
+----------------------------
+
+Server components
+    Server components are the default in the App Router. They run on the
+    server and are suitable for:
+
+    - Database queries
+    - Backend logic
+    - Reading environment variables and secret keys
+    - Async operations and server-side data fetching
+
+Client components
+    Use "use client" at the top of a file to make it a client component.
+    Client components are suitable for:
+
+    - State and component updates
+    - Event handlers
+    - Browser APIs
+    - Interactive UI
+
+When a page needs both server and client behavior, a server component can
+import a client component. Keep stateful and interactive code in client
+components, and keep server-only logic in server components.
+
+
+Loading UI
+----------
+Create a loading.tsx file to show a loading interface while Next.js waits for
+a page or route segment to finish loading.
+
+Example structure:
+
+    app/
+    |-- loading.tsx
+    `-- page.tsx
+
+The loading UI can be a spinner, skeleton, progress indicator, or another
+temporary component.
+
+
+Not-found UI
+------------
+Create a not-found.tsx file to define the UI shown when a route or resource
+cannot be found. You can also call the notFound() function from
+"next/navigation" inside a server component or route handler:
+
+    import { notFound } from "next/navigation";
+
+    export default function Page() {
+        // Show not-found UI when the resource is missing.
+        notFound();
+    }
